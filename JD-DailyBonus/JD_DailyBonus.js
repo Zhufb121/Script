@@ -362,6 +362,8 @@ function JingDongBean(s) {
         },
         body: 'functionId=signBeanIndex&appid=ld'
       };
+      console.log("\n" + "京东商城-京豆签到JDBUrl " + JDBUrl)
+
       $nobyda.post(JDBUrl, function(error, response, data) {
         try {
           if (error) {
