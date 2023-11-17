@@ -356,7 +356,9 @@ function JingDongBean(s) {
       const JDBUrl = {
         url: 'https://api.m.jd.com/client.action',
         headers: {
-          Cookie: KEY
+          Cookie: KEY,
+          Host: 'api.m.jd.com',
+          Origin: 'https://pro.m.jd.com'
         },
         body: 'functionId=signBeanIndex&appid=ld'
       };
