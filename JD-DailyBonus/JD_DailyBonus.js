@@ -357,8 +357,8 @@ function JingDongBean(s) {
         url: 'https://api.m.jd.com/client.action',
         headers: {
           Cookie: KEY,
-          Host: 'api.m.jd.com',
-          Origin: 'https://pro.m.jd.com'
+          Origin: 'https://pro.m.jd.com',
+          Host: 'api.m.jd.com'
         },
         body: 'functionId=signBeanIndex&appid=ld'
       };
