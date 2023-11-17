@@ -1594,7 +1594,9 @@ function nobyda() {
       //}
       $task.fetch(options).then(response => {
         callback(null, adapterStatus(response), response.body)
-        console.log('\nresponse.body: ' + response.body)
+        console.log('\noptions.url: ' + options.url)
+        console.log('\noptions.body: ' + options.body)
+        console.log('\nresponse.header: ' + options.header)
       }, reason => callback(reason.error, null, null))
     }
     if (isSurge) {
