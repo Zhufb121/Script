@@ -1,46 +1,46 @@
 /*************************
 
-京东多合一签到脚本
+ 京东多合一签到脚本
 
-更新时间: 2021.09.09 20:20 v2.1.3
-有效接口: 20+
-脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
-电报频道: @NobyDa 
-问题反馈: @NobyDa_bot 
-如果转载: 请注明出处
+ 更新时间: 2021.09.09 20:20 v2.1.3
+ 有效接口: 20+
+ 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
+ 电报频道: @NobyDa
+ 问题反馈: @NobyDa_bot
+ 如果转载: 请注明出处
 
-*************************
-【 QX, Surge, Loon 说明 】 :
-*************************
+ *************************
+ 【 QX, Surge, Loon 说明 】 :
+ *************************
 
-初次使用时, app配置文件添加脚本配置, 并启用Mitm后:
+ 初次使用时, app配置文件添加脚本配置, 并启用Mitm后:
 
-Safari浏览器打开登录 https://home.m.jd.com/myJd/newhome.action 点击"我的"页面
-或者使用旧版网址 https://bean.m.jd.com/bean/signIndex.action 点击签到并且出现签到日历
-如果通知获取Cookie成功, 则可以使用此签到脚本. 注: 请勿在京东APP内获取!!!
+ Safari浏览器打开登录 https://home.m.jd.com/myJd/newhome.action 点击"我的"页面
+ 或者使用旧版网址 https://bean.m.jd.com/bean/signIndex.action 点击签到并且出现签到日历
+ 如果通知获取Cookie成功, 则可以使用此签到脚本. 注: 请勿在京东APP内获取!!!
 
-获取京东金融签到Body说明: 正确添加脚本配置后, 进入"京东金融"APP, 在"首页"点击"签到"并签到一次, 待通知提示成功即可.
+ 获取京东金融签到Body说明: 正确添加脚本配置后, 进入"京东金融"APP, 在"首页"点击"签到"并签到一次, 待通知提示成功即可.
 
-由于cookie的有效性(经测试网页Cookie有效周期最长31天)，如果脚本后续弹出cookie无效的通知，则需要重复上述步骤。 
-签到脚本将在每天的凌晨0:05执行, 您可以修改执行时间。 因部分接口京豆限量领取, 建议调整为凌晨签到。
+ 由于cookie的有效性(经测试网页Cookie有效周期最长31天)，如果脚本后续弹出cookie无效的通知，则需要重复上述步骤。
+ 签到脚本将在每天的凌晨0:05执行, 您可以修改执行时间。 因部分接口京豆限量领取, 建议调整为凌晨签到。
 
-BoxJs或QX Gallery订阅地址: https://raw.githubusercontent.com/NobyDa/Script/master/NobyDa_BoxJs.json
+ BoxJs或QX Gallery订阅地址: https://raw.githubusercontent.com/NobyDa/Script/master/NobyDa_BoxJs.json
 
-*************************
-【 配置多京东账号签到说明 】 : 
-*************************
+ *************************
+ 【 配置多京东账号签到说明 】 :
+ *************************
 
-正确配置QX、Surge、Loon后, 并使用此脚本获取"账号1"Cookie成功后, 请勿点击退出账号(可能会导致Cookie失效), 需清除浏览器资料或更换浏览器登录"账号2"获取即可; 账号3或以上同理.
-注: 如需清除所有Cookie, 您可开启脚本内"DeleteCookie"选项 (第114行)
+ 正确配置QX、Surge、Loon后, 并使用此脚本获取"账号1"Cookie成功后, 请勿点击退出账号(可能会导致Cookie失效), 需清除浏览器资料或更换浏览器登录"账号2"获取即可; 账号3或以上同理.
+ 注: 如需清除所有Cookie, 您可开启脚本内"DeleteCookie"选项 (第114行)
 
-*************************
-【 JSbox, Node.js 说明 】 :
-*************************
+ *************************
+ 【 JSbox, Node.js 说明 】 :
+ *************************
 
-开启抓包app后, Safari浏览器登录 https://home.m.jd.com/myJd/newhome.action 点击个人中心页面后, 返回抓包app搜索关键字 info/GetJDUserInfoUnion 复制请求头Cookie字段填入json串数据内即可
+ 开启抓包app后, Safari浏览器登录 https://home.m.jd.com/myJd/newhome.action 点击个人中心页面后, 返回抓包app搜索关键字 info/GetJDUserInfoUnion 复制请求头Cookie字段填入json串数据内即可
 
-如需获取京东金融签到Body, 可进入"京东金融"APP (iOS), 在"首页"点击"签到"并签到一次, 返回抓包app搜索关键字 h5/m/appSign 复制请求体填入json串数据内即可
-*/
+ 如需获取京东金融签到Body, 可进入"京东金融"APP (iOS), 在"首页"点击"签到"并签到一次, 返回抓包app搜索关键字 h5/m/appSign 复制请求体填入json串数据内即可
+ */
 
 var Key = ''; //该参数已废弃; 仅用于下游脚本的兼容, 请使用json串数据 ↓
 
@@ -117,7 +117,7 @@ var boxdis = true; //是否开启自动禁用, false则关闭. 脚本运行崩�
 
 var ReDis = false; //是否移除所有禁用列表, true则开启. 适用于触发自动禁用后, 需要再次启用接口的情况. (该选项仅适用于QX,Surge,Loon)
 
-var out = 0; //接口超时退出, 用于可能发生的网络不稳定, 0则关闭. 如QX日志出现大量"JS Context timeout"后脚本中断时, 建议填写6000
+var out = 6000; //接口超时退出, 用于可能发生的网络不稳定, 0则关闭. 如QX日志出现大量"JS Context timeout"后脚本中断时, 建议填写6000
 
 var $nobyda = nobyda();
 
@@ -201,7 +201,7 @@ async function all(cookie, jrBody) {
       // await JDUserSignPre(Wait(stop), 'JDCustomized', '京东商城-定制', '2BJK5RBdvc3hdddZDS1Svd5Esj3R'); //京东定制
       await JDUserSignPre(Wait(stop), 'JDSuitcase', '京东商城-箱包', 'ZrH7gGAcEkY2gH8wXqyAPoQgk6t'); //京东箱包馆
       await JDUserSignPre(Wait(stop), 'JDClothing', '京东商城-服饰', '4RBT3H9jmgYg1k2kBnHF8NAHm7m8'); //京东服饰
-      await JDUserSignPre(Wait(stop), 'JDSchool', '京东商城-校园', '2QUxWHx5BSCNtnBDjtt5gZTq7zdZ'); //京东校园 
+      await JDUserSignPre(Wait(stop), 'JDSchool', '京东商城-校园', '2QUxWHx5BSCNtnBDjtt5gZTq7zdZ'); //京东校园
       await JDUserSignPre(Wait(stop), 'JDHealth', '京东商城-健康', 'w2oeK5yLdHqHvwef7SMMy4PL8LF'); //京东健康
       await JDUserSignPre(Wait(stop), 'JDShoes', '京东商城-鞋靴', '4RXyb1W4Y986LJW8ToqMK14BdTD'); //京东鞋靴
       await JDUserSignPre(Wait(stop), 'JDChild', '京东商城-童装', '3Af6mZNcf5m795T8dtDVfDwWVNhJ'); //京东童装馆
@@ -407,44 +407,6 @@ function JingDongBean(s) {
     if (out) setTimeout(resolve, out + s)
   });
 }
-
-// function JingDongTurn(s) {
-//   merge.JDTurn = {}, merge.JDTurn.notify = "", merge.JDTurn.success = 0, merge.JDTurn.bean = 0;
-//   return new Promise((resolve, reject) => {
-//     if (disable("JDTurn")) return reject()
-//     const JDTUrl = {
-//       url: 'https://api.m.jd.com/client.action?functionId=wheelSurfIndex&body=%7B%22actId%22%3A%22jgpqtzjhvaoym%22%2C%22appSource%22%3A%22jdhome%22%7D&appid=ld',
-//       headers: {
-//         Cookie: KEY,
-//       }
-//     };
-//     $nobyda.get(JDTUrl, async function(error, response, data) {
-//       try {
-//         if (error) {
-//           throw new Error(error)
-//         } else {
-//           const cc = JSON.parse(data)
-//           const Details = LogDetails ? "response:\n" + data : '';
-//           if (cc.data && cc.data.lotteryCode) {
-//             console.log("\n" + "京东商城-转盘查询成功 " + Details)
-//             return resolve(cc.data.lotteryCode)
-//           } else {
-//             merge.JDTurn.notify = "京东商城-转盘: 失败, 原因: 查询错误 ⚠️"
-//             merge.JDTurn.fail = 1
-//             console.log("\n" + "京东商城-转盘查询失败 " + Details)
-//           }
-//         }
-//       } catch (eor) {
-//         $nobyda.AnError("京东转盘-查询", "JDTurn", eor, response, data)
-//       } finally {
-//         reject()
-//       }
-//     })
-//     if (out) setTimeout(reject, out + s)
-//   }).then(data => {
-//     return JingDongTurnSign(s, data);
-//   }, () => {});
-// }
 
 function JingDongTurn(s) {
   if (!merge.JDTurn) merge.JDTurn = {}, merge.JDTurn.notify = "", merge.JDTurn.success = 0, merge.JDTurn.bean = 0;
@@ -820,70 +782,6 @@ function JDUserSign1(s, key, title, body) {
       })
     }, s)
     if (out) setTimeout(resolve, out + s)
-  });
-}
-
-async function JDUserSign2(s, key, title, tid) {
-  return console.log(`\n${title} >> 可能需要拼图验证, 跳过签到 ⚠️`);
-  await new Promise(resolve => {
-    $nobyda.get({
-      url: `https://jdjoy.jd.com/api/turncard/channel/detail?turnTableId=${tid}&invokeKey=ztmFUCxcPMNyUq0P`,
-      headers: {
-        Cookie: KEY
-      }
-    }, function(error, response, data) {
-      resolve()
-    })
-    if (out) setTimeout(resolve, out + s)
-  });
-  return new Promise(resolve => {
-    setTimeout(() => {
-      const JDUrl = {
-        url: 'https://jdjoy.jd.com/api/turncard/channel/sign?invokeKey=ztmFUCxcPMNyUq0P',
-        headers: {
-          lkt: '1629984131120',
-          lks: 'd7db92cf40ad5a8d54b9da2b561c5f84',
-          Cookie: KEY
-        },
-        body: `turnTableId=${tid}`
-      };
-      $nobyda.post(JDUrl, function(error, response, data) {
-        try {
-          if (error) {
-            throw new Error(error)
-          } else {
-            const Details = LogDetails ? `response:\n${data}` : '';
-            if (data.match(/\"success\":true/)) {
-              console.log(`\n${title}签到成功(2)${Details}`)
-              if (data.match(/\"jdBeanQuantity\":\d+/)) {
-                merge[key].bean = data.match(/\"jdBeanQuantity\":(\d+)/)[1]
-              }
-              merge[key].notify = `${title}: 成功, 明细: ${merge[key].bean || '无'}京豆 🐶`
-              merge[key].success = 1
-            } else {
-              const captcha = /请进行验证/.test(data);
-              if (data.match(/(已经签到|已经领取)/)) {
-                merge[key].notify = `${title}: 失败, 原因: 已签过 ⚠️`
-              } else if (data.match(/(不存在|已结束|未开始)/)) {
-                merge[key].notify = `${title}: 失败, 原因: 活动已结束 ⚠️`
-              } else if (data.match(/(没有登录|B0001)/)) {
-                merge[key].notify = `${title}: 失败, 原因: Cookie失效‼️`
-              } else if (!captcha) {
-                const ng = data.match(/\"(errorMessage|subCodeMsg)\":\"(.+?)\"/)
-                merge[key].notify = `${title}: 失败, ${ng?ng[2]:`原因: 未知`} ⚠️`
-              }
-              if (!captcha) merge[key].fail = 1;
-              console.log(`\n${title}签到失败(2)${captcha?`\n需要拼图验证, 跳过通知记录 ⚠️`:``}${Details}`)
-            }
-          }
-        } catch (eor) {
-          $nobyda.AnError(title, key, eor, response, data)
-        } finally {
-          resolve()
-        }
-      })
-    }, 200 + s)
-    if (out) setTimeout(resolve, out + s + 200)
   });
 }
 
@@ -1422,242 +1320,237 @@ function GetCookie() {
 
 // Modified from yichahucha
 function nobyda() {
-  const start = Date.now()
-  const isRequest = typeof $request != "undefined"
-  const isSurge = typeof $httpClient != "undefined"
-  const isQuanX = typeof $task != "undefined"
-  const isLoon = typeof $loon != "undefined"
-  const isJSBox = typeof $app != "undefined" && typeof $http != "undefined"
-  const isNode = typeof require == "function" && !isJSBox;
-  const NodeSet = 'CookieSet.json'
-  const node = (() => {
-    if (isNode) {
-      const request = require('request');
-      const fs = require("fs");
-      const path = require("path");
-      return ({
-        request,
-        fs,
-        path
-      })
-    } else {
-      return (null)
-    }
-  })()
-  const notify = (title, subtitle, message, rawopts) => {
-    const Opts = (rawopts) => { //Modified from https://github.com/chavyleung/scripts/blob/master/Env.js
-      if (!rawopts) return rawopts
-      if (typeof rawopts === 'string') {
-        if (isLoon) return rawopts
-        else if (isQuanX) return {
-          'open-url': rawopts
+    const start = Date.now()
+    const isRequest = typeof $request != "undefined"
+    const isSurge = typeof $httpClient != "undefined"
+    const isQuanX = typeof $task != "undefined"
+    const isLoon = typeof $loon != "undefined"
+    const isJSBox = typeof $app != "undefined" && typeof $http != "undefined"
+    const isNode = typeof require == "function" && !isJSBox;
+    const NodeSet = 'CookieSet.json'
+    const node = (() => {
+        if (isNode) {
+            const request = require('request');
+            const fs = require("fs");
+            const path = require("path");
+            return ({
+                request,
+                fs,
+                path
+            })
+        } else {
+            return (null)
         }
-        else if (isSurge) return {
-          url: rawopts
+    })()
+    const notify = (title, subtitle, message, rawopts) => {
+        const Opts = (rawopts) => { //Modified from https://github.com/chavyleung/scripts/blob/master/Env.js
+            if (!rawopts) return rawopts
+            if (typeof rawopts === 'string') {
+                if (isLoon) return rawopts
+                else if (isQuanX) return {
+                    'open-url': rawopts
+                }
+                else if (isSurge) return {
+                    url: rawopts
+                }
+                else return undefined
+            } else if (typeof rawopts === 'object') {
+                if (isLoon) {
+                    let openUrl = rawopts.openUrl || rawopts.url || rawopts['open-url']
+                    let mediaUrl = rawopts.mediaUrl || rawopts['media-url']
+                    return {
+                        openUrl,
+                        mediaUrl
+                    }
+                } else if (isQuanX) {
+                    let openUrl = rawopts['open-url'] || rawopts.url || rawopts.openUrl
+                    let mediaUrl = rawopts['media-url'] || rawopts.mediaUrl
+                    return {
+                        'open-url': openUrl,
+                        'media-url': mediaUrl
+                    }
+                } else if (isSurge) {
+                    let openUrl = rawopts.url || rawopts.openUrl || rawopts['open-url']
+                    return {
+                        url: openUrl
+                    }
+                }
+            } else {
+                return undefined
+            }
         }
-        else return undefined
-      } else if (typeof rawopts === 'object') {
-        if (isLoon) {
-          let openUrl = rawopts.openUrl || rawopts.url || rawopts['open-url']
-          let mediaUrl = rawopts.mediaUrl || rawopts['media-url']
-          return {
-            openUrl,
-            mediaUrl
-          }
-        } else if (isQuanX) {
-          let openUrl = rawopts['open-url'] || rawopts.url || rawopts.openUrl
-          let mediaUrl = rawopts['media-url'] || rawopts.mediaUrl
-          return {
-            'open-url': openUrl,
-            'media-url': mediaUrl
-          }
-        } else if (isSurge) {
-          let openUrl = rawopts.url || rawopts.openUrl || rawopts['open-url']
-          return {
-            url: openUrl
-          }
+        console.log(`${title}\n${subtitle}\n${message}`)
+        if (isQuanX) $notify(title, subtitle, message, Opts(rawopts))
+        if (isSurge) $notification.post(title, subtitle, message, Opts(rawopts))
+        if (isJSBox) $push.schedule({
+            title: title,
+            body: subtitle ? subtitle + "\n" + message : message
+        })
+    }
+    const write = (value, key) => {
+        if (isQuanX) return $prefs.setValueForKey(value, key)
+        if (isSurge) return $persistentStore.write(value, key)
+        if (isNode) {
+            try {
+                if (!node.fs.existsSync(node.path.resolve(__dirname, NodeSet)))
+                    node.fs.writeFileSync(node.path.resolve(__dirname, NodeSet), JSON.stringify({}));
+                const dataValue = JSON.parse(node.fs.readFileSync(node.path.resolve(__dirname, NodeSet)));
+                if (value) dataValue[key] = value;
+                if (!value) delete dataValue[key];
+                return node.fs.writeFileSync(node.path.resolve(__dirname, NodeSet), JSON.stringify(dataValue));
+            } catch (er) {
+                return AnError('Node.js持久化写入', null, er);
+            }
         }
-      } else {
-        return undefined
-      }
+        if (isJSBox) {
+            if (!value) return $file.delete(`shared://${key}.txt`);
+            return $file.write({
+                data: $data({
+                    string: value
+                }),
+                path: `shared://${key}.txt`
+            })
+        }
     }
-    console.log(`${title}\n${subtitle}\n${message}`)
-    if (isQuanX) $notify(title, subtitle, message, Opts(rawopts))
-    if (isSurge) $notification.post(title, subtitle, message, Opts(rawopts))
-    if (isJSBox) $push.schedule({
-      title: title,
-      body: subtitle ? subtitle + "\n" + message : message
-    })
-  }
-  const write = (value, key) => {
-    if (isQuanX) return $prefs.setValueForKey(value, key)
-    if (isSurge) return $persistentStore.write(value, key)
-    if (isNode) {
-      try {
-        if (!node.fs.existsSync(node.path.resolve(__dirname, NodeSet)))
-          node.fs.writeFileSync(node.path.resolve(__dirname, NodeSet), JSON.stringify({}));
-        const dataValue = JSON.parse(node.fs.readFileSync(node.path.resolve(__dirname, NodeSet)));
-        if (value) dataValue[key] = value;
-        if (!value) delete dataValue[key];
-        return node.fs.writeFileSync(node.path.resolve(__dirname, NodeSet), JSON.stringify(dataValue));
-      } catch (er) {
-        return AnError('Node.js持久化写入', null, er);
-      }
+    const read = (key) => {
+        if (isQuanX) return $prefs.valueForKey(key)
+        if (isSurge) return $persistentStore.read(key)
+        if (isNode) {
+            try {
+                if (!node.fs.existsSync(node.path.resolve(__dirname, NodeSet))) return null;
+                const dataValue = JSON.parse(node.fs.readFileSync(node.path.resolve(__dirname, NodeSet)))
+                return dataValue[key]
+            } catch (er) {
+                return AnError('Node.js持久化读取', null, er)
+            }
+        }
+        if (isJSBox) {
+            if (!$file.exists(`shared://${key}.txt`)) return null;
+            return $file.read(`shared://${key}.txt`).string
+        }
     }
-    if (isJSBox) {
-      if (!value) return $file.delete(`shared://${key}.txt`);
-      return $file.write({
-        data: $data({
-          string: value
-        }),
-        path: `shared://${key}.txt`
-      })
+    const adapterStatus = (response) => {
+        if (response) {
+            if (response.status) {
+                response["statusCode"] = response.status
+            } else if (response.statusCode) {
+                response["status"] = response.statusCode
+            }
+        }
+        return response
     }
-  }
-  const read = (key) => {
-    if (isQuanX) return $prefs.valueForKey(key)
-    if (isSurge) return $persistentStore.read(key)
-    if (isNode) {
-      try {
-        if (!node.fs.existsSync(node.path.resolve(__dirname, NodeSet))) return null;
-        const dataValue = JSON.parse(node.fs.readFileSync(node.path.resolve(__dirname, NodeSet)))
-        return dataValue[key]
-      } catch (er) {
-        return AnError('Node.js持久化读取', null, er)
-      }
+    const get = (options, callback) => {
+        options.headers['User-Agent'] = 'JD4iPhone/167169 (iPhone; iOS 13.4.1; Scale/3.00)'
+        if (isQuanX) {
+            if (typeof options == "string") options = {
+                url: options
+            }
+            options["method"] = "GET"
+            $task.fetch(options).then(response => {
+                callback(null, adapterStatus(response), response.body)
+            }, reason => callback(reason.error, null, null))
+        }
+        if (isSurge) {
+            options.headers['X-Surge-Skip-Scripting'] = false
+            $httpClient.get(options, (error, response, body) => {
+                callback(error, adapterStatus(response), body)
+            })
+        }
+        if (isNode) {
+            node.request(options, (error, response, body) => {
+                callback(error, adapterStatus(response), body)
+            })
+        }
+        if (isJSBox) {
+            if (typeof options == "string") options = {
+                url: options
+            }
+            options["header"] = options["headers"]
+            options["handler"] = function (resp) {
+                let error = resp.error;
+                if (error) error = JSON.stringify(resp.error)
+                let body = resp.data;
+                if (typeof body == "object") body = JSON.stringify(resp.data);
+                callback(error, adapterStatus(resp.response), body)
+            };
+            $http.get(options);
+        }
     }
-    if (isJSBox) {
-      if (!$file.exists(`shared://${key}.txt`)) return null;
-      return $file.read(`shared://${key}.txt`).string
+    const post = (options, callback) => {
+        options.headers['User-Agent'] = 'JD4iPhone/167169 (iPhone; iOS 13.4.1; Scale/3.00)'
+        if (options.body) {
+            options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+            options.headers['Host'] = 'api.m.jd.com'
+            options.headers['Origin'] = 'https://pro.m.jd.com'
+        }
+        if (isQuanX) {
+            if (typeof options == "string") options = {
+                url: options
+            }
+            options["method"] = "POST"
+            $task.fetch(options).then(response => {
+                callback(null, adapterStatus(response), response.body)
+            }, reason => callback(reason.error, null, null))
+        }
+        if (isSurge) {
+            options.headers['X-Surge-Skip-Scripting'] = false
+            $httpClient.post(options, (error, response, body) => {
+                callback(error, adapterStatus(response), body)
+            })
+        }
+        if (isNode) {
+            node.request.post(options, (error, response, body) => {
+                callback(error, adapterStatus(response), body)
+            })
+        }
+        if (isJSBox) {
+            if (typeof options == "string") options = {
+                url: options
+            }
+            options["header"] = options["headers"]
+            options["handler"] = function (resp) {
+                let error = resp.error;
+                if (error) error = JSON.stringify(resp.error)
+                let body = resp.data;
+                if (typeof body == "object") body = JSON.stringify(resp.data)
+                callback(error, adapterStatus(resp.response), body)
+            }
+            $http.post(options);
+        }
     }
-  }
-  const adapterStatus = (response) => {
-    if (response) {
-      if (response.status) {
-        response["statusCode"] = response.status
-      } else if (response.statusCode) {
-        response["status"] = response.statusCode
-      }
+    const AnError = (name, keyname, er, resp, body) => {
+        if (typeof (merge) != "undefined" && keyname) {
+            if (!merge[keyname].notify) {
+                merge[keyname].notify = `${name}: 异常, 已输出日志 ‼️`
+            } else {
+                merge[keyname].notify += `\n${name}: 异常, 已输出日志 ‼️ (2)`
+            }
+            merge[keyname].error = 1
+        }
+        return console.log(`\n‼️${name}发生错误\n‼️名称: ${er.name}\n‼️描述: ${er.message}${JSON.stringify(er).match(/\"line\"/) ? `\n‼️行列: ${JSON.stringify(er)}` : ``}${resp && resp.status ? `\n‼️状态: ${resp.status}` : ``}${body ? `\n‼️响应: ${resp && resp.status != 503 ? body : `Omit.`}` : ``}`)
     }
-    return response
-  }
-  const get = (options, callback) => {
-    options.headers['User-Agent'] = 'JD4iPhone/167169 (iPhone; iOS 13.4.1; Scale/3.00)'
-    if (isQuanX) {
-      if (typeof options == "string") options = {
-        url: options
-      }
-      options["method"] = "GET"
-      //options["opts"] = {
-      //  "hints": false
-      //}
-      $task.fetch(options).then(response => {
-        callback(null, adapterStatus(response), response.body)
-      }, reason => callback(reason.error, null, null))
+    const time = () => {
+        const end = ((Date.now() - start) / 1000).toFixed(2)
+        return console.log('\n签到用时: ' + end + ' 秒')
     }
-    if (isSurge) {
-      options.headers['X-Surge-Skip-Scripting'] = false
-      $httpClient.get(options, (error, response, body) => {
-        callback(error, adapterStatus(response), body)
-      })
+    const done = (value = {}) => {
+        if (isQuanX) return $done(value)
+        if (isSurge) isRequest ? $done(value) : $done()
     }
-    if (isNode) {
-      node.request(options, (error, response, body) => {
-        callback(error, adapterStatus(response), body)
-      })
+    return {
+        AnError,
+        isRequest,
+        isJSBox,
+        isSurge,
+        isQuanX,
+        isLoon,
+        isNode,
+        notify,
+        write,
+        read,
+        get,
+        post,
+        time,
+        done
     }
-    if (isJSBox) {
-      if (typeof options == "string") options = {
-        url: options
-      }
-      options["header"] = options["headers"]
-      options["handler"] = function(resp) {
-        let error = resp.error;
-        if (error) error = JSON.stringify(resp.error)
-        let body = resp.data;
-        if (typeof body == "object") body = JSON.stringify(resp.data);
-        callback(error, adapterStatus(resp.response), body)
-      };
-      $http.get(options);
-    }
-  }
-  const post = (options, callback) => {
-    options.headers['User-Agent'] = 'JD4iPhone/167169 (iPhone; iOS 13.4.1; Scale/3.00)'
-    if (options.body) options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    if (isQuanX) {
-      if (typeof options == "string") options = {
-        url: options
-      }
-      options["method"] = "POST"
-      //options["opts"] = {
-      //  "hints": false
-      //}
-      $task.fetch(options).then(response => {
-        callback(null, adapterStatus(response), response.body)
-        console.log('\noptions.url: ' + options.url)
-        console.log('\noptions.body: ' + options.body)
-        console.log('\nresponse.header: ' + options.header)
-      }, reason => callback(reason.error, null, null))
-    }
-    if (isSurge) {
-      options.headers['X-Surge-Skip-Scripting'] = false
-      $httpClient.post(options, (error, response, body) => {
-        callback(error, adapterStatus(response), body)
-      })
-    }
-    if (isNode) {
-      node.request.post(options, (error, response, body) => {
-        callback(error, adapterStatus(response), body)
-      })
-    }
-    if (isJSBox) {
-      if (typeof options == "string") options = {
-        url: options
-      }
-      options["header"] = options["headers"]
-      options["handler"] = function(resp) {
-        let error = resp.error;
-        if (error) error = JSON.stringify(resp.error)
-        let body = resp.data;
-        if (typeof body == "object") body = JSON.stringify(resp.data)
-        callback(error, adapterStatus(resp.response), body)
-      }
-      $http.post(options);
-    }
-  }
-  const AnError = (name, keyname, er, resp, body) => {
-    if (typeof(merge) != "undefined" && keyname) {
-      if (!merge[keyname].notify) {
-        merge[keyname].notify = `${name}: 异常, 已输出日志 ‼️`
-      } else {
-        merge[keyname].notify += `\n${name}: 异常, 已输出日志 ‼️ (2)`
-      }
-      merge[keyname].error = 1
-    }
-    return console.log(`\n‼️${name}发生错误\n‼️名称: ${er.name}\n‼️描述: ${er.message}${JSON.stringify(er).match(/\"line\"/)?`\n‼️行列: ${JSON.stringify(er)}`:``}${resp&&resp.status?`\n‼️状态: ${resp.status}`:``}${body?`\n‼️响应: ${resp&&resp.status!=503?body:`Omit.`}`:``}`)
-  }
-  const time = () => {
-    const end = ((Date.now() - start) / 1000).toFixed(2)
-    return console.log('\n签到用时: ' + end + ' 秒')
-  }
-  const done = (value = {}) => {
-    if (isQuanX) return $done(value)
-    if (isSurge) isRequest ? $done(value) : $done()
-  }
-  return {
-    AnError,
-    isRequest,
-    isJSBox,
-    isSurge,
-    isQuanX,
-    isLoon,
-    isNode,
-    notify,
-    write,
-    read,
-    get,
-    post,
-    time,
-    done
-  }
 };
